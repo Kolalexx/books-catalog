@@ -21,7 +21,9 @@ class ChapterController extends Controller
      */
     public function create()
     {
-        //
+        $chapters = new Chapter();
+        $html = html()->model($chapters);
+        return view('chapter.create', compact('html'));
     }
 
     /**
@@ -29,7 +31,21 @@ class ChapterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'name.required' => 'Это обязательное поле',
+            'name.unique' => 'Статус с таким именем уже существует',
+            'description.required' => 'Это обязательное поле'
+        ];
+        $data = $this->validate($request, [
+            'name' => 'required|max:150|unique:chapters',
+            'description' => 'required|max:500',
+        ], $messages);
+
+        $chapters = new Chapter();
+        $chapters->fill($data)->save();
+
+        flash(__('views.chapter.flash.store'));
+        return redirect()->route('chapters.index');
     }
 
     /**
