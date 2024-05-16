@@ -21,8 +21,8 @@ class ChapterController extends Controller
      */
     public function create()
     {
-        $chapters = new Chapter();
-        $html = html()->model($chapters);
+        $chapter = new Chapter();
+        $html = html()->model($chapter);
         return view('chapter.create', compact('html'));
     }
 
@@ -32,17 +32,19 @@ class ChapterController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'name.required' => 'Это обязательное поле',
-            'name.unique' => 'Статус с таким именем уже существует',
-            'description.required' => 'Это обязательное поле'
+            'name.required' => 'Название раздела - это обязательное поле',
+            'name.max' => 'Название раздела не может превышать 150 символов',
+            'name.unique' => 'Раздел с таким именем уже существует',
+            'description.required' => 'Описание раздела - это обязательное поле',
+            'description.max' => 'Описание раздела не может превышать 500 символов'
         ];
         $data = $this->validate($request, [
             'name' => 'required|max:150|unique:chapters',
             'description' => 'required|max:500',
         ], $messages);
 
-        $chapters = new Chapter();
-        $chapters->fill($data)->save();
+        $chapter = new Chapter();
+        $chapter->fill($data)->save();
 
         flash(__('views.chapter.flash.store'));
         return redirect()->route('chapters.index');
@@ -53,7 +55,8 @@ class ChapterController extends Controller
      */
     public function edit(Chapter $chapter)
     {
-        //
+        $html = html()->model($chapter);
+        return view('chapter.edit', compact('chapter', 'html'));
     }
 
     /**
@@ -61,7 +64,22 @@ class ChapterController extends Controller
      */
     public function update(Request $request, Chapter $chapter)
     {
-        //
+        $messages = [
+            'name.required' => 'Название раздела - это обязательное поле',
+            'name.max' => 'Название раздела не может превышать 150 символов',
+            'name.unique' => 'Раздел с таким именем уже существует',
+            'description.required' => 'Описание раздела - это обязательное поле',
+            'description.max' => 'Описание раздела не может превышать 500 символов'
+        ];
+        $data = $this->validate($request, [
+            'name' => 'required|max:150|unique:chapters,name,' . $chapter->id,
+            'description' => 'required|max:500',
+        ], $messages);
+
+        $chapter->fill($data)->save();
+
+        flash(__('views.chapter.flash.update'));
+        return redirect()->route('chapters.index');
     }
 
     /**
