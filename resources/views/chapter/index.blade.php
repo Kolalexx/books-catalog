@@ -21,9 +21,7 @@
                         <th>{{ __('views.chapter.fields.name') }}</th>
                         <th>{{ __('views.chapter.fields.description') }}</th>
                         <th>{{ __('views.chapter.fields.created_at') }}</th>
-                        @auth
-                            <th>{{ __('views.actions.column_name') }}</th>
-                        @endauth
+                        <th>{{ __('views.actions.column_name') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,15 +31,13 @@
                             <td>{{ Str::limit($chapter->name, 50, '...') }}</td>
                             <td>{{ Str::limit($chapter->description, 65, '...') }}</td>
                             <td>{{ $chapter->created_at }}</td>
-                            @auth
-                                <td>
-                                    <a href="{{ route('chapters.destroy', $chapter) }}"
-                                        data-method="DELETE" data-confirm="{{ __('views.actions.confirmation') }}"
-                                        class="text-red-600 hover:text-red-900">
-                                        {{ __('views.actions.delete') }} </a>
-                                    <a href="{{ route('chapters.edit', $chapter) }}">{{ __('views.actions.edit') }}</a>
-                                </td>
-                            @endauth
+                            <td>
+                                <a href="{{ route('chapters.destroy', $chapter) }}"
+                                    data-method="DELETE" data-confirm="{{ __('views.actions.confirmation') }}"
+                                    class="text-red-600 hover:text-red-900">
+                                    {{ __('views.actions.delete') }}</a>
+                                <a href="{{ route('chapters.edit', $chapter) }}">{{ __('views.actions.edit') }}</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
