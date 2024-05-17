@@ -35,11 +35,11 @@
                             <td>{{ $chapter->created_at }}</td>
                             @auth
                                 <td>
-                                    <a data-confirm="{{ __('views.actions.confirmation') }}" data-method="delete"
-                                        class="text-red-600 hover:text-red-900"
-                                        href="{{ route('chapters.destroy', $chapter->id) }}">
+                                    <a href="{{ route('chapters.destroy', $chapter) }}"
+                                        data-method="DELETE" data-confirm="{{ __('views.actions.confirmation') }}"
+                                        class="text-red-600 hover:text-red-900">
                                         {{ __('views.actions.delete') }} </a>
-                                    <a href="{{ route('chapters.edit', ['chapter' => $chapter->id]) }}">{{ __('views.actions.edit') }}</a>
+                                    <a href="{{ route('chapters.edit', $chapter) }}">{{ __('views.actions.edit') }}</a>
                                 </td>
                             @endauth
                         </tr>

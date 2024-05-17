@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Каталог книг',
-    'task' => [
+    'book' => [
         'fields' => [
             'id' => 'ID',
             'name' => 'Имя',

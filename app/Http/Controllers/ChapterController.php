@@ -87,6 +87,8 @@ class ChapterController extends Controller
      */
     public function destroy(Chapter $chapter)
     {
-        //
+        $chapter->delete();
+        flash(__('views.chapter.flash.destroy.success'));
+        return redirect()->route('chapters.index');
     }
 }
