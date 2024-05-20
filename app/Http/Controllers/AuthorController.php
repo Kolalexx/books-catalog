@@ -21,7 +21,9 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        $author = new Author();
+        $html = html()->model($author);
+        return view('author.create', compact('html'));
     }
 
     /**
@@ -29,15 +31,25 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $messages = [
+            'fullName.required' => 'ФИО - это обязательное поле',
+            'fullName.max' => 'ФИО не может превышать 150 символов',
+            'fullName.unique' => 'Автор с таким ФИО уже существует',
+            'countryOfBirth.required' => 'Страна рождения - это обязательное поле',
+            'countryOfBirth.max' => 'Название страны не может превышать 100 символов',
+            'comment.max' => 'Комментаний не может превышать 500 символов'
+        ];
+        $data = $this->validate($request, [
+            'fullName' => 'required|max:150|unique:authors',
+            'countryOfBirth' => 'required|max:100',
+            'comment' => 'max:500',
+        ], $messages);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Author $author)
-    {
-        //
+        $author = new Author();
+        $author->fill($data)->save();
+
+        flash(__('views.author.flash.store'));
+        return redirect()->route('authors.index');
     }
 
     /**
@@ -52,14 +64,6 @@ class AuthorController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Author $author)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Author $author)
     {
         //
     }

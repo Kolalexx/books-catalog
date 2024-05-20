@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('fullName');
             $table->string('countryOfBirth');
-            $table->string('comment');
+            $table->string('comment')->nullable();
             $table->timestamps();
         });
     }
