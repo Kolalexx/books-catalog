@@ -57,7 +57,8 @@ class AuthorController extends Controller
      */
     public function edit(Author $author)
     {
-        //
+        $html = html()->model($author);
+        return view('author.edit', compact('author', 'html'));
     }
 
     /**
@@ -65,6 +66,23 @@ class AuthorController extends Controller
      */
     public function update(Request $request, Author $author)
     {
-        //
+        $messages = [
+            'fullName.required' => 'ФИО - это обязательное поле',
+            'fullName.max' => 'ФИО не может превышать 150 символов',
+            'fullName.unique' => 'Автор с таким ФИО уже существует',
+            'countryOfBirth.required' => 'Страна рождения - это обязательное поле',
+            'countryOfBirth.max' => 'Название страны не может превышать 100 символов',
+            'comment.max' => 'Комментаний не может превышать 500 символов'
+        ];
+        $data = $this->validate($request, [
+            'fullName' => 'required|max:150|unique:authors,fullName,' . $author->id,
+            'countryOfBirth' => 'required|max:100',
+            'comment' => 'max:500',
+        ], $messages);
+
+        $author->fill($data)->save();
+
+        flash(__('views.author.flash.update'));
+        return redirect()->route('authors.index');
     }
 }
