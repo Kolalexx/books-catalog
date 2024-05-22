@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Book;
 
 class Chapter extends Model
 {
@@ -13,4 +14,9 @@ class Chapter extends Model
         'name',
         'description',
     ];
+
+    public function books()
+    {
+        return $this->hasMany(Book::class, 'chapter_id');
+    }
 }

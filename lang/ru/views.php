@@ -5,42 +5,41 @@ return [
     'book' => [
         'fields' => [
             'id' => 'ID',
-            'name' => 'Имя',
+            'name' => 'Название книги',
+            'yearOfPublication' => 'Год издания',
             'description' => 'Описание',
-            'status_id' => 'Статус',
-            'created_by_id' => 'Автор',
-            'assigned_to_id' => 'Исполнитель',
+            'cover' => 'Обложка',
+            'author_id' => 'ФИО автора',
+            'chapter_id' => 'Раздел',
             'created_at' => 'Дата создания',
-            'labels' => 'Метки',
-            'filter[status_id]' => 'Статус',
-            'filter[created_by_id]' => 'Автор',
-            'filter[assigned_to_id]' => 'Исполнитель',
+            'filter[name]' => 'Название книги',
+            'filter[author_id]' => 'Автор',
         ],
         'pages' => [
             'create' => [
                 'submit' => 'Создать',
-                'title' => 'Создать задачу',
+                'title' => 'Добавить книгу',
             ],
             'edit' => [
                 'submit' => 'Обновить',
-                'title' => 'Изменить задачу',
+                'title' => 'Изменить книгу',
             ],
             'index' => [
-                'title' => 'Задачи',
-                'new' => 'Создать задачу',
+                'title' => 'Каталог книг',
+                'new' => 'Добавить книгу',
             ],
             'show' => [
-                'title' => 'Задача: ',
+                'title' => 'Книга: ',
             ],
             'filter' => [
-                'submit' => 'Применить'
+                'submit' => 'Найти'
             ]
         ],
         'flash' => [
-            'store' => 'Задача успешно создана',
-            'update' => 'Задача успешно изменена',
+            'store' => 'Книга успешно добавлена',
+            'update' => 'Книга успешно изменена',
             'destroy' => [
-                'success' => 'Задача успешно удалена',
+                'success' => 'Книга успешно удалена',
                 'fail' => [
                     'no-rigths' => 'Нет прав на удаление',
                 ],
@@ -109,14 +108,12 @@ return [
     ],
 
     'delete' => 'Удалить',
-    'greeting' => 'Привет от Хекслета!',
     'actions' => [
         'column_name' => 'Действия',
         'edit' => 'Изменить',
         'delete' => 'Удалить',
         'confirmation' => 'Вы уверены?',
     ],
-    'This is a simple task manager on Laravel' => 'Это простой менеджер задач на Laravel',
     'Push me' => 'Нажми меня'
 
 ];

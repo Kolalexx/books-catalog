@@ -8,11 +8,9 @@
     <h1 class="mb-5">{{ __('views.author.pages.index.title') }}</h1>
 
     <div>
-        @auth
-            <a class="btn btn-primary" href="{{ route('authors.create') }}">
-                {{ __('views.author.pages.index.new') }}
-            </a>
-        @endauth
+        <a class="btn btn-primary" href="{{ route('authors.create') }}">
+            {{ __('views.author.pages.index.new') }}
+        </a>
         <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
             <table class="table">
                 <thead class="border-b-2 border-solid border-black text-left">
