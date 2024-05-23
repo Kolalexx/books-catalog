@@ -81,7 +81,16 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        $html = html()->model($book);
+        $authors = collect(Author::all())
+            ->mapWithKeys(function ($item) {
+                return [$item->id => [$item->id => $item->fullName]];
+            })->all();
+        $chapters = collect(Chapter::all())
+            ->mapWithKeys(function ($item) {
+                return [$item->id => [$item->id => $item->name]];
+            })->all();
+        return view('book.edit', compact('book', 'html', 'authors', 'chapters'));
     }
 
     /**
@@ -89,7 +98,30 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $messages = [
+            'name.required' => 'Название книги - это обязательное поле',
+            'name.max' => 'Название книги не может превышать 150 символов',
+            'name.unique' => 'Раздел с таким именем уже существует',
+            'yearOfPublication.required' => 'Год издания - это обязательное поле',
+            'yearOfPublication.max' => 'Год издания не может превышать 4 символа',
+            'description.required' => 'Описание книги - это обязательное поле',
+            'description.max' => 'Описание книги не может превышать 2000 символов',
+            'cover.max' => 'Обложка не может превышать 500 символов'
+        ];
+        $data = $this->validate($request, [
+            'name' => 'required|max:150|unique:books,name,' . $book->id,
+            'yearOfPublication' => 'required|max:4',
+            'description' => 'required|max:2000',
+            'cover' => 'max:500',
+        ], $messages);
+
+        $book->fill($data);
+        $book->author_id = $request->author;
+        $book->chapter_id = $request->chapter;
+        $book->save();
+
+        flash(__('views.book.flash.update'));
+        return redirect()->route('books.index');
     }
 
     /**
