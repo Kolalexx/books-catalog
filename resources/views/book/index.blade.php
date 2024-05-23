@@ -9,7 +9,7 @@
 
     <div>
         @auth
-            <a class="btn btn-primary" href="{{ route('chapters.create') }}">
+            <a class="btn btn-primary" href="{{ route('books.create') }}">
                 {{ __('views.book.pages.index.new') }}
             </a>
         @endauth
