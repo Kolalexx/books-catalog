@@ -73,7 +73,7 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return view('book.show', compact('book'));
     }
 
     /**
@@ -122,13 +122,5 @@ class BookController extends Controller
 
         flash(__('views.book.flash.update'));
         return redirect()->route('books.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Book $book)
-    {
-        //
     }
 }

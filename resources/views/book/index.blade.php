@@ -32,7 +32,9 @@
                     @foreach ($books as $book)
                         <tr class="border-b border-dashed text-left">
                             <td>{{ $book->id }}</td>
-                            <td>{{ Str::limit($book->name, 40, '...') }}</td>
+                            <td>
+                                <a href="{{ route('books.show', $book) }}">{{ Str::limit($book->name, 40, '...') }}</a>
+                            </td>
                             <td>{{ $book->yearOfPublication }}</td>
                             <td>{{ Str::limit($book->description, 40, '...') }}</td>
                             <td>{{ Str::limit($book->cover, 40, '...') }}</td>
@@ -41,10 +43,6 @@
                             <td>{{ $book->created_at }}</td>
                             <td>
                                 @auth
-                                    <a href="{{ route('books.destroy', $book) }}"
-                                        data-method="DELETE" data-confirm="{{ __('views.actions.confirmation') }}"
-                                        class="text-red-600 hover:text-red-900">
-                                        {{ __('views.actions.delete') }}</a>
                                     <a href="{{ route('books.edit', $book) }}">{{ __('views.actions.edit') }}</a>
                                 @endauth
                             </td>
