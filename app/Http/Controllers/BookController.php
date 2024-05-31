@@ -6,6 +6,8 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Chapter;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class BookController extends Controller
 {
@@ -14,7 +16,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        if (request('searchBook')) {
+            $books = Book::where('name', 'like', '%' . request('searchBook') . '%')->get();
+        } elseif (request('searchAuthor')) {
+            $authors = Author::where('fullName', 'like', '%' . request('searchAuthor') . '%')->pluck('id');
+            $books = Book::whereIn('author_id', $authors)->get();
+        } else {
+            $books = Book::all();
+        }
         return view('book.index', compact('books'));
     }
 

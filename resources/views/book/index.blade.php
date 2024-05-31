@@ -8,8 +8,13 @@
     <h1 class="mb-5">{{ __('views.book.pages.index.title') }}</h1>
 
     <div>
+        <form>
+            <input type="search" class="form-control mb-2" placeholder="Поиск по названию книги" name="searchBook" value="{{ request('searchBook') }}">
+            <input type="search" class="form-control mb-2" placeholder="Поиск по автору книги" name="searchAuthor" value="{{ request('searchAuthor') }}">
+            <button class="btn btn-primary mb-4">{{ __('views.book.pages.filter.submit') }}</button>
+        </form>
         @auth
-            <a class="btn btn-primary" href="{{ route('books.create') }}">
+            <a class="btn btn-primary mb-2" href="{{ route('books.create') }}">
                 {{ __('views.book.pages.index.new') }}
             </a>
         @endauth
