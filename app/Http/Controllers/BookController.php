@@ -22,7 +22,7 @@ class BookController extends Controller
             $authors = Author::where('fullName', 'like', '%' . request('searchAuthor') . '%')->pluck('id');
             $books = Book::whereIn('author_id', $authors)->get();
         } else {
-            $books = Book::all();
+            $books = Book::paginate(5);
         }
         return view('book.index', compact('books'));
     }

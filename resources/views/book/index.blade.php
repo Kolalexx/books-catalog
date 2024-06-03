@@ -44,7 +44,7 @@
                             <td>{{ Str::limit($book->description, 40, '...') }}</td>
                             <td>{{ Str::limit($book->cover, 40, '...') }}</td>
                             <td>{{ Str::limit($book->author->fullName, 40, '...') }}</td>
-                            <td>{{ Str::limit($book->chapter->name, 40, '...') }}</td>
+                            <td>{{ Str::limit($book->chapter->name ?? 'None', 40, '...') }}</td>
                             <td>{{ $book->created_at }}</td>
                             <td>
                                 @auth
@@ -56,5 +56,8 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        {{ $books->links() }}
     </div>
 @endsection
